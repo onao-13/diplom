@@ -1,0 +1,25 @@
+{
+    "name": "ЖК HIDE (Хайд)",
+    "images": [
+        {
+            "location": "Фронтальное фото",
+            "url": "https://www.novostroy-m.ru/images/presets/msk/novos/860x450/d90cfafefcdeae0ac1253ae605e0a4c1.jpg"
+        },
+        {
+            "location": "Test 2",
+            "url": "https://www.novostroy-m.ru/images/presets/msk/novos/860x450/86eced1ee88c9dade21095ffac163afd.jpg"
+        },
+        {
+            "location": "Tets 3",
+            "url": "https://www.novostroy-m.ru/images/presets/msk/novos/860x450/b14c6c46c62e9e781e17af8ba86f89eb.jpg"
+        },
+        {
+            "location": "Test 4",
+            "url": "https://www.novostroy-m.ru/images/presets/msk/novos/860x450/b14c6c46c62e9e781e17af8ba86f89eb.jpg"
+        },
+        {
+            "location": "Test 5",
+            "url": "https://www.novostroy-m.ru/images/presets/msk/novos/860x450/e8fdf31a07a3545e135534bea94f1ec8.jpg"
+        }
+    ]
+}

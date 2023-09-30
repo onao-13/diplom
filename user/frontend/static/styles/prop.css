@@ -1,0 +1,14 @@
+.category-prop {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-left: 30px;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  overflow-x: scroll;
+  width: 100%;
+}/*# sourceMappingURL=prop.css.map */

@@ -1,0 +1,68 @@
+body {
+  display: flex;
+  flex-direction: column;
+  gap: 160px;
+}
+
+.banner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.banner .left {
+  padding-left: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.banner .left .top .logo {
+  font-size: 88;
+  font-weight: 800;
+}
+.banner .left .top .logo em {
+  color: #80737D;
+  font-style: normal;
+  text-decoration: underline;
+}
+.banner .left .top .description {
+  font-size: 40px;
+}
+
+.card {
+  min-width: 440px;
+  height: 480px;
+  background-color: #80737D;
+  border-radius: 24px;
+  color: white;
+}
+.card .cover {
+  width: 100%;
+  height: 240px;
+  border-radius: 24px;
+}
+.card .box {
+  padding-left: 10px;
+}
+.card .box .title {
+  font-weight: bold;
+  font-size: 28px;
+}
+.card .box .position {
+  font-size: 20px;
+}
+.card .box .description {
+  font-size: 18px;
+}
+
+.about-company .box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.about-company p {
+  margin-left: 5%;
+  margin-right: 5%;
+  text-align: center;
+}/*# sourceMappingURL=index.css.map */

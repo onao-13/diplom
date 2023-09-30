@@ -1,0 +1,139 @@
+{
+    "cities": [
+        {
+            "name": "Москва",
+            "locations": [
+                {
+                    "id": 1,
+                    "name": "Тест 1",
+                    "price": 10000,
+                    "features": {
+                        "transport": [
+                            {
+                                "color": "#ff0000",
+                                "name": "Метро 1"
+                            },
+                            {
+                                "color": "00ff00",
+                                "name": "Метро 2"
+                            }
+                        ],
+                        "popular_locations": [
+                            {
+                                "name": "Место 1"
+                            },
+                            {
+                                "name": "Метро 2"
+                            }
+                        ]
+                    }
+                } ,
+                {
+                    "id": 2,
+                    "name": "Тест 2",
+                    "price": 15700,
+                    "features": {
+                        "transport": [
+                            {
+                                "color": "#ff0000",
+                                "name": "Метро 1"
+                            },
+                            {
+                                "color": "00ff00",
+                                "name": "Метро 2"
+                            }
+                        ],
+                        "popular_locations": [
+                            {
+                                "name": "Место 1"
+                            },
+                            {
+                                "name": "Метро 2"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": 3,
+                    "name": "Тест 3",
+                    "price": 19900,
+                    "features": {
+                        "transport": [
+                            {
+                                "color": "#ff0000",
+                                "name": "Метро 1"
+                            },
+                            {
+                                "color": "00ff00",
+                                "name": "Метро 2"
+                            }
+                        ],
+                        "popular_locations": [
+                            {
+                                "name": "Место 1"
+                            },
+                            {
+                                "name": "Метро 2"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Санкт-Петербург",
+            "locations": [
+                {
+                    "id": 4,
+                    "name": "Тест 1",
+                    "price": 10000,
+                    "features": {
+                        "transport": [
+                            {
+                                "color": "#ff0000",
+                                "name": "Метро 1"
+                            },
+                            {
+                                "color": "00ff00",
+                                "name": "Метро 2"
+                            }
+                        ],
+                        "popular_locations": [
+                            {
+                                "name": "Место 1"
+                            },
+                            {
+                                "name": "Метро 2"
+                            }
+                        ]
+                    }
+                } ,
+                {
+                    "id": 5,
+                    "name": "Тест 2",
+                    "price": 15700,
+                    "features": {
+                        "transport": [
+                            {
+                                "color": "#ff0000",
+                                "name": "Метро 1"
+                            },
+                            {
+                                "color": "00ff00",
+                                "name": "Метро 2"
+                            }
+                        ],
+                        "popular_locations": [
+                            {
+                                "name": "Место 1"
+                            },
+                            {
+                                "name": "Метро 2"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

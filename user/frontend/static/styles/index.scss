@@ -1,0 +1,84 @@
+$fedora: #80737D;
+
+body {
+  display: flex;
+  flex-direction: column;
+  gap: 160px;
+}
+
+.banner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .left {
+    padding-left: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .top {
+      .logo { 
+        font-size: 88;
+        font-weight: 800;
+    
+        em {
+          color: $fedora;
+          font-style: normal;
+          text-decoration: underline;
+        }
+      }
+    
+      .description {
+        font-size: 40px;
+      }
+    }
+  }
+}
+
+.card {
+  min-width: 440px;
+  height: 480px;
+  background-color: $fedora;
+  border-radius: 24px;
+  color: white;
+
+  .cover {
+    width: 100%;
+    height: 240px;
+    border-radius: 24px;
+  }
+
+  .box {
+    padding-left: 10px;
+
+    .title {
+      font-weight: bold;
+      font-size: 28px;
+    }
+
+    .position {
+      font-size: 20px;
+    }
+
+    .description {
+      font-size: 18px;
+    }
+  }
+}
+
+.about-company {
+  .box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  p {
+    margin-left: 5%;
+    margin-right: 5%;
+    text-align: center;
+  }
+}

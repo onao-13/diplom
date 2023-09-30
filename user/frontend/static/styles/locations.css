@@ -1,0 +1,68 @@
+.cities {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+.cities .city .name {
+  font-family: Manrope;
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-decoration-line: underline;
+}
+.cities .cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+.cities .cards .card {
+  cursor: pointer;
+  width: 640px;
+  height: 560px;
+  border-radius: 24px;
+  background-color: #80737D;
+  color: white;
+}
+.cities .cards .card img {
+  width: 100%;
+  height: 280px;
+  border-radius: 24px;
+}
+.cities .cards .card .data {
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.cities .cards .card .data .main {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cities .cards .card .data .main .name {
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+}
+.cities .cards .card .data .main .price {
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.cities .cards .card .data .details {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+.cities .cards .card .data .details .list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cities .cards .card .data .details .list p {
+  margin: 0;
+}/*# sourceMappingURL=locations.css.map */
