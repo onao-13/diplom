@@ -21,7 +21,7 @@ services:
   admin:
     image: admin:1.0
     ports:
-      - 8090:8090
+      - 8085:8085
     networks:
       - admin
 volumes:

@@ -32,10 +32,10 @@ CREATE TABLE home_popular_locations_data(
 CREATE TABLE artciles(
     id SERIAL PRIMARY KEY,
     title VARCHAR(50) NOT NULL,
-    content VARCHAR(5000) NOT NULL,
-    imageId BIGINT NOT NULL REFERENCES images(id) 
+    content VARCHAR(5000) NOT NULL
 );
+    -- imageId BIGINT NOT NULL REFERENCES images(id) 
 
-CREATE TABLE images(
-    id SERIAL PRIMARY KEY
-);
+-- CREATE TABLE images(
+--     id SERIAL PRIMARY KEY
+-- );
