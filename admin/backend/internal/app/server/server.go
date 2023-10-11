@@ -34,11 +34,13 @@ func (s *Server) Serve() {
 	}
 
 	articleDatabase := database.NewArticle(s.ctx, pool, log)
+	cityDatabase := database.NewCity(s.ctx, pool, log)
 
 	articleService := service.NewArticle(articleDatabase)
+	cityService := service.NewCity(cityDatabase)
 
 	articleController := controller.NewArticle(articleService, log)
-	cityController := controller.NewCity()
+	cityController := controller.NewCity(cityService, log)
 	locationController := controller.NewLocation()
 
 	route := api.Route(articleController, cityController, locationController)
