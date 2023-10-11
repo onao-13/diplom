@@ -1,7 +1,7 @@
 -- HOME
 CREATE TABLE cities(
     id SERIAL PRIMARY KEY,
-    cityName VARCHAR(50) NOT NULL
+    cityName VARCHAR(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE homes(
