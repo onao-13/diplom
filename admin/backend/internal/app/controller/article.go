@@ -65,7 +65,12 @@ func (a *Article) Preview(w http.ResponseWriter, r *http.Request) {
 func (a *Article) Update(w http.ResponseWriter, r *http.Request) {
 	var art payload.Article
 
-	ids := utils.GetHeader(w, r, "X-Edited-Id")
+	vars := mux.Vars(r)
+	ids, ok := vars["id"]
+	if !ok {
+		handler.HandleBadRequest(w, "ID is empty")
+		return
+	}
 
 	if err := json.NewDecoder(r.Body).Decode(&art); err != nil {
 		handler.HandleDecodeJsonError(w, err)
