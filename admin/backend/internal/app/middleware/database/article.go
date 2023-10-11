@@ -48,7 +48,7 @@ func (a *Article) Preview(id int64) (payload.Article, error) {
 
 func (a *Article) Update(id int64, art payload.Article) error {
 	sql := `UPDATE articles 
-			SET title=@title content=@content
+			SET title=@title, content=@content
 			WHERE id=@id
 			`
 	
