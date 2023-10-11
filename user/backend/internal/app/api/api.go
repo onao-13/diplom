@@ -26,7 +26,7 @@ func Route(
 	r.HandleFunc("/home", webController.Home).Methods(http.MethodGet)
 	r.HandleFunc("/locations", webController.Locations).Methods(http.MethodGet)
 
-	fileServer := http.FileServer(http.Dir("./static/"))
+	fileServer := http.FileServer(http.Dir("./../frontend/static/"))
 	r.PathPrefix("/static").Handler(http.StripPrefix("/static", fileServer))
 	return r
 }
