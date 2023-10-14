@@ -9,16 +9,19 @@ import (
 )
 
 func Route(
-	locationController controller.Location, 
 	webController controller.Web,
 	articleController controller.Article,
 	homeController controller.Home,
 ) *mux.Router {
 	r := mux.NewRouter()
 	// JSON API
-	r.HandleFunc("/api/locations/new", locationController.Get).Methods(http.MethodGet)
-	r.HandleFunc("/api/articles/new", articleController.Get).Methods(http.MethodGet)
-	r.HandleFunc("/api/locations/home/{id: [0-9]+}", homeController.Data).Methods(http.MethodGet)
+	// HOME
+	r.HandleFunc("/api/locations/list", homeController.List).Methods(http.MethodGet)
+	r.HandleFunc("/api/locations/home/{id:[0-9]+}", homeController.Get).Methods(http.MethodGet)
+
+	// ARTICLE
+	r.HandleFunc("/api/articles/list", articleController.List).Methods(http.MethodGet)
+	r.HandleFunc("/api/articles/{id:[0-9]+}", articleController.Get).Methods(http.MethodGet)
 
 	// WEB
 	r.HandleFunc("/", webController.Index).Methods(http.MethodGet)
