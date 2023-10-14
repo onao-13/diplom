@@ -1,24 +1,47 @@
 package controller
 
 import (
+	"backend/internal/app/handler"
+	"backend/internal/app/middleware/service"
 	"net/http"
-	"os"
+	"strconv"
+
+	"github.com/gorilla/mux"
+	"github.com/sirupsen/logrus"
 )
 
 type Home struct {
-	
+	s service.Home
+	log logrus.Logger
 }
 
-func NewHome() Home {
-	return Home{}
+func NewHome(s service.Home, log logrus.Logger) Home {
+	return Home{s, log}
 }
 
-func (*Home) Data(w http.ResponseWriter, r *http.Request) {
-	data, err := os.ReadFile("./json/home.json")
-	if err != nil {
+func (h *Home) Get(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	ids, ok := vars["id"]
+	if !ok {
+		handler.HandleBadRequest(w, "ID пустое")
 		return
 	}
 
-	w.WriteHeader(200)
-	w.Write(data)
+	id, err := strconv.ParseInt(ids, 10, 64)
+	if err != nil {
+		handler.HandlerInternalServerError(w, "Ошибка получения ID")
+		return
+	}
+
+	home, err := h.s.GetById(id)
+	if err != nil {
+		handler.HandleNotFound(w, "Дом не найден")
+		return
+	}
+
+	handler.HandleOkData(w, home)
+}
+
+func (h *Home) List(w http.ResponseWriter, r *http.Request) {
+	
 }
