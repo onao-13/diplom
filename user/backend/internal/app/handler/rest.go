@@ -3,14 +3,66 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
+
+	"github.com/sirupsen/logrus"
 )
 
-func HandleOk(w http.ResponseWriter, data interface{}) {
-	w.WriteHeader(http.StatusOK)
+var logger = logrus.New()
 
-	resData, err := json.Marshal(data)
-	if err != nil {
+// HandleOkMsg function   Обертка для отправки ответа со статусом 200 и сообщением
+func HandleOkMsg(w http.ResponseWriter, msg string) {
+	handle(http.StatusOK, w, nil)
+}
+
+// HandleOk function     Обертка для отправки ответа со статусом 200 и телом
+func HandleOkData(w http.ResponseWriter, data interface{}) {
+	handle(http.StatusOK, w, data)
+}
+
+// HandleBadRequest function     Обертка для отправки ответа со статусом 400
+func HandleBadRequest(w http.ResponseWriter, err string) {
+	res := createShortRes("error", err)
+	handle(http.StatusBadRequest, w, res)
+}
+
+// HandleNotFound function     Обертка для отправки ответа со статусом 404
+func HandleNotFound(w http.ResponseWriter, err string) {
+	res := createShortRes("error", err)
+	handle(http.StatusNotFound, w, res)
+}
+
+// HandlerInternalServerError function     Обертка для отправки ответа со статусом 500
+func HandlerInternalServerError(w http.ResponseWriter, err string) {
+	res := createShortRes("error", err)
+	handle(http.StatusInternalServerError, w, res)
+}
+
+// setContentType установка заголовка Content-Type - application/json
+func setContentType(w *http.ResponseWriter) {
+	(*w).Header().Set("Content-Type", "application/json")
+}
+
+// handle function    функция для создания ответа и отправки ее клиенту
+func handle(code int, w http.ResponseWriter, data interface{}) {
+	setContentType(&w)
+	w.WriteHeader(code)
+	if data != nil {
+		d, err := json.Marshal(data)
+		if err != nil {
+			logger.Error("Ошибка: %s", err.Error())
+		}
+
+		if _, err := w.Write(d); err != nil {
+			logger.Error("Ошибка: %s", err.Error())
+		}
+	} else {
+		w.Write([]byte{})
 	}
+}
 
-	w.Write(resData)
+// createShortRes создание короткого ответа для отправки
+func createShortRes(name string, msg string) map[string]interface{} {
+	r := make(map[string]interface{}, 1)
+	r[name] = msg
+	return r
 }
