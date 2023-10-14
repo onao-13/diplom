@@ -7,6 +7,7 @@ import (
 	"admin/internal/app/middleware/service"
 	"admin/internal/config"
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -30,7 +31,7 @@ func (s *Server) Serve() {
 
 	pool, err := pgxpool.New(s.ctx, s.cfg.DbUrl())
 	if err != nil {
-		log.Error("Ошибка подключения к базе: ", err.Error())
+		panic(fmt.Sprintf("Ошибка подключения к базе: ", err.Error()))
 	}
 
 	articleDatabase := database.NewArticle(s.ctx, pool, log)
