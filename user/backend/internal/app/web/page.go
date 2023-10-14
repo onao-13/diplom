@@ -10,10 +10,10 @@ type Page struct {
 }
 
 const (
-	Index     = "./../frontend/html/index.html"
-	Home      = "./../frontend/html/home.html"
-	Articles  = "./../frontend/html/articles.html"
-	Locations = "./../frontend/html/locations.html"
+	Index     = "./frontend/html/index.html"
+	Home      = "./frontend/html/home.html"
+	Articles  = "./frontend/html/articles.html"
+	Locations = "./frontend/html/locations.html"
 )
 
 func LoadPage(name string) (Page, error) {
