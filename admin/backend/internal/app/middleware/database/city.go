@@ -21,9 +21,9 @@ func NewCity(ctx context.Context, pool *pgxpool.Pool, log logrus.Logger) City {
 }
 
 func (c *City) Create(city payload.City) error {
-	sql := `INSERT INTO cities(cityName) VALUES(@city)`
+	sql := `INSERT INTO cities(name) VALUES(@city)`
 	arg := pgx.NamedArgs{
-		"city": city.Name,
+		"name": city.Name,
 	}
 
 	if _, err := c.pool.Exec(c.ctx, sql, arg); err != nil {
@@ -36,9 +36,10 @@ func (c *City) Create(city payload.City) error {
 func (c *City) Preview(id int64) (payload.City, error) {
 	var city payload.City
 
-	sql := `SELECT cityName FROM cities WHERE id = $1`
+	sql := `SELECT name FROM cities WHERE id = $1`
 
-	if err := pgxscan.Select(c.ctx, c.pool, &city, sql, id); err != nil {
+	if err := pgxscan.Get(c.ctx, c.pool, &city, sql, id); err != nil {
+		c.log.Error("Error get city: ", err.Error())
 		return payload.City{}, err
 	}
 
