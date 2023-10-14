@@ -39,7 +39,7 @@ func (a *Article) Preview(id int64) (payload.Article, error) {
 	
 	sql := `SELECT title, content FROM articles WHERE id=$1`
 	
-	if err := pgxscan.Select(a.ctx, a.pool, &art, sql, id); err != nil {
+	if err := pgxscan.Get(a.ctx, a.pool, &art, sql, id); err != nil {
 		return payload.Article{}, err
 	}
 
