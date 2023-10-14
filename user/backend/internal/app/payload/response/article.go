@@ -1,10 +1,16 @@
 package response
 
-import "net/http"
-
 type Article struct {
-	Id      int `json:id`
-	Name    string `json:name`
+	Id      int    `json:id`
+	Title   string `json:name`
 	Content string `json:content`
-	Images  []http.File `json:images`
+}
+
+type ArticleCategory struct {
+	Name     string    `json:name`
+	Articles []Article `json:articles`
+}
+
+type ArticleList struct {
+	List []ArticleCategory `json:list`
 }
