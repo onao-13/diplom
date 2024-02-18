@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  myhome-admin:
+    image: onao13/myhome-admin
+    networks:
+      - dev
+    depends_on:
+      - db
+    ports:
+      - "8085:8085"
+  db:
+    image: postgres:latest
+    env_file:
+      - db.env
+    volumes:
+      - /db-home:/var/lib/postgresql/data
+    networks:
+      - dev
+    ports:
+      - "5432:5432"
+volumes:
+  db-home:
+networks:
+  dev:
