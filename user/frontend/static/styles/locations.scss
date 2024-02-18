@@ -1,11 +1,19 @@
 $fedora: #80737D;
 
+h1 {
+    margin-bottom: 0;
+}
+
 .cities {
     display: flex;
     flex-direction: column;
     gap: 50px;
 
     .city {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
         .name {
             font-family: Manrope;
             font-size: 42px;
@@ -13,6 +21,11 @@ $fedora: #80737D;
             font-weight: 700;
             line-height: normal;
             text-decoration-line: underline;
+        }
+
+        button {
+            cursor: pointer;
+            width: 100%;
         }
     }
 
@@ -24,7 +37,7 @@ $fedora: #80737D;
         .card {
             cursor: pointer;
             width: 640px;
-            height: 560px;
+            padding: 20px 0;
             border-radius: 24px;
             background-color: $fedora;
             color: white;

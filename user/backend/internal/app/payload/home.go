@@ -1,0 +1,31 @@
+package payload
+
+type (
+	Home struct {
+		Id               string                `json:"id"`
+		Name             string                `json:"name"`
+		Street           string                `json:"street"`
+		Price            uint64                `json:"price"`
+		CityId           string                `json:"city_id"`
+		Images           []HomeImage           `json:"images"`
+		Transports       []HomeTransport       `json:"transports"`
+		PopularLocations []HomePopularLocation `json:"popular_locations"`
+		Layout           string                `json:"layout"`
+		GreenZone        string                `json:"green_zone"`
+		Infrastructure   string                `json:"infrastructure"`
+		Events           string                `json:"events"`
+		Schools          string                `json:"schools"`
+	}
+	HomeImage struct {
+		URL string `json:"url"`
+	}
+	HomeTransport struct {
+		Id   int64  `json:"id"`
+		Name string `json:"name"`
+	}
+	HomePopularLocation struct {
+		Id      int64  `json:"id"`
+		Name    string `json:"name"`
+		Address string `json:"address"`
+	}
+)

@@ -1,7 +1,16 @@
+h1 {
+  margin-bottom: 0;
+}
+
 .cities {
   display: flex;
   flex-direction: column;
   gap: 50px;
+}
+.cities .city {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 .cities .city .name {
   font-family: Manrope;
@@ -11,6 +20,10 @@
   line-height: normal;
   text-decoration-line: underline;
 }
+.cities .city button {
+  cursor: pointer;
+  width: 100%;
+}
 .cities .cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -19,7 +32,7 @@
 .cities .cards .card {
   cursor: pointer;
   width: 640px;
-  height: 560px;
+  padding: 20px 0;
   border-radius: 24px;
   background-color: #80737D;
   color: white;

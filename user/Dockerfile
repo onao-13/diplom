@@ -4,29 +4,27 @@ FROM golang:1.21.1-alpine AS build
 WORKDIR /app
 
 # INSTALL DEPENDENCIES
-COPY go.mod ./
-COPY go.sum ./
+COPY backend/go.mod ./
+COPY backend/go.sum ./
 
 RUN go mod download
 
 # COPY APP
-COPY backend .
+COPY backend ./
 
-RUN CGO_ENABLED=0 GOOS=linux go build -C cmd -o /app 
+RUN CGO_ENABLED=0 GOOS=linux go build -C ./cmd -o /backend
 
 # STAGE 2: CREATE CONTAINER
 FROM alpine:latest
 
-COPY --from=build /app app
+COPY --from=build /backend app
 COPY frontend frontend
 
-ENV port=8080
+ENV port=8120
 ENV db-user=admin
 ENV db-pass=adminpass
-ENV db-namt=myhome
+ENV db-name=myhome
 ENV db-host=db
 ENV db-port=5432
 
-EXPOSE 8080
-
-CMD ["./app"] 
+CMD ["./app"]

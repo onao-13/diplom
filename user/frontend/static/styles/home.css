@@ -6,6 +6,14 @@
   align-items: center;
 }
 
+#manager_form_button {
+  cursor: pointer;
+}
+
+h2 {
+  font-size: 40px;
+}
+
 .home__slider {
   display: flex;
   flex-direction: column-reverse;
@@ -66,4 +74,115 @@
 }
 .home__slider .slider__slides .innactive .bubble img {
   filter: brightness(0) saturate(100%) invert(0%) sepia(42%) saturate(1%) hue-rotate(321deg) brightness(95%) contrast(100%);
+}
+
+.windowDiv {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 100;
+}
+
+.manager_call_form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+  background-color: #BFACBB;
+  padding: 20px;
+  border-radius: 24px;
+  width: 500px;
+  height: 300px;
+  align-items: center;
+  justify-content: center;
+}
+.manager_call_form input {
+  border: 1px solid black;
+  width: 80%;
+  height: 40px;
+  font-size: medium;
+}
+.manager_call_form button {
+  padding: 0 10px;
+  height: 40px;
+  background-color: #80737D;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 14px;
+}
+.manager_call_form .error {
+  color: red;
+}
+
+.home__description__categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.home__description__categories .category {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.home__description__categories .category .card {
+  width: 440px;
+  border-radius: 24px;
+  border: 1px solid black;
+}
+.home__description__categories .category .card p {
+  margin-left: 14px;
+  margin-top: 14px;
+  font-size: 24px;
+  font-weight: 800;
+}
+.home__description__categories .category .content {
+  width: 300px;
+  word-wrap: break-word;
+  font-size: 16px;
+  font-weight: 700;
+}
+.home__description__categories .layout .card {
+  height: 440px;
+  background-color: white;
+}
+.home__description__categories .green-zone {
+  flex-direction: column;
+}
+.home__description__categories .green-zone .card {
+  height: 220px;
+  background-color: #92B486;
+  color: white;
+}
+.home__description__categories .school .card {
+  height: 220px;
+  background-color: #FFAF00;
+  color: white;
+}
+.home__description__categories .transport {
+  flex-direction: column;
+}
+.home__description__categories .transport .card {
+  height: 220px;
+  background-color: #AAA6A4;
+  color: white;
+}
+.home__description__categories .infrastructure .card {
+  height: 440px;
+  background-color: #F0EFE2;
+}
+.home__description__categories .events {
+  flex-direction: column;
+}
+.home__description__categories .events .card {
+  height: 220px;
+  background-color: #C7F5FF;
 }/*# sourceMappingURL=home.css.map */

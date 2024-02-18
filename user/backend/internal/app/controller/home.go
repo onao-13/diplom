@@ -2,21 +2,19 @@ package controller
 
 import (
 	"backend/internal/app/handler"
-	"backend/internal/app/middleware/service"
+	"backend/internal/app/service"
 	"net/http"
 	"strconv"
 
 	"github.com/gorilla/mux"
-	"github.com/sirupsen/logrus"
 )
 
 type Home struct {
-	s service.Home
-	log logrus.Logger
+	service service.Home
 }
 
-func NewHome(s service.Home, log logrus.Logger) Home {
-	return Home{s, log}
+func NewHome(s service.Home) Home {
+	return Home{s}
 }
 
 func (h *Home) Get(w http.ResponseWriter, r *http.Request) {
@@ -33,15 +31,11 @@ func (h *Home) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	home, err := h.s.GetById(id)
+	home, err := h.service.GetById(id)
 	if err != nil {
 		handler.HandleNotFound(w, "Дом не найден")
 		return
 	}
 
 	handler.HandleOkData(w, home)
-}
-
-func (h *Home) List(w http.ResponseWriter, r *http.Request) {
-	
 }

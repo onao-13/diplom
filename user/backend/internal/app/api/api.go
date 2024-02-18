@@ -9,27 +9,34 @@ import (
 )
 
 func Route(
-	webController controller.Web,
-	articleController controller.Article,
-	homeController controller.Home,
+	web controller.Web,
+	city controller.City,
+	article controller.Article,
+	home controller.Home,
+	managerCall controller.ManagerCall,
 ) *mux.Router {
 	r := mux.NewRouter()
-	// JSON API
+	// REST API
+	// MANAGER CALL
+	r.HandleFunc("/api/send-manager-call", managerCall.Send).Methods(http.MethodPost)
+
+	// CITY
+	r.HandleFunc("/api/cities", city.GetAll).Methods(http.MethodGet)
+
 	// HOME
-	r.HandleFunc("/api/locations/list", homeController.List).Methods(http.MethodGet)
-	r.HandleFunc("/api/locations/home/{id:[0-9]+}", homeController.Get).Methods(http.MethodGet)
+	r.HandleFunc("/api/homes/{id:[0-9]+}", home.Get).Methods(http.MethodGet)
 
 	// ARTICLE
-	r.HandleFunc("/api/articles/list", articleController.List).Methods(http.MethodGet)
-	r.HandleFunc("/api/articles/{id:[0-9]+}", articleController.Get).Methods(http.MethodGet)
+	r.HandleFunc("/api/articles", article.List).Methods(http.MethodGet)
+	r.HandleFunc("/api/articles/{id:[0-9]+}", article.Get).Methods(http.MethodGet)
 
 	// WEB
-	r.HandleFunc("/", webController.Index).Methods(http.MethodGet)
-	r.HandleFunc("/articles", webController.Articles).Methods(http.MethodGet)
-	r.HandleFunc("/home", webController.Home).Methods(http.MethodGet)
-	r.HandleFunc("/locations", webController.Locations).Methods(http.MethodGet)
+	r.HandleFunc("/", web.Index).Methods(http.MethodGet)
+	r.HandleFunc("/articles", web.Articles).Methods(http.MethodGet)
+	r.HandleFunc("/home", web.Home).Methods(http.MethodGet)
+	r.HandleFunc("/locations", web.Locations).Methods(http.MethodGet)
 
-	fileServer := http.FileServer(http.Dir("./../frontend/static/"))
+	fileServer := http.FileServer(http.Dir("frontend/static/"))
 	r.PathPrefix("/static").Handler(http.StripPrefix("/static", fileServer))
 	return r
 }

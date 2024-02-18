@@ -11,7 +11,7 @@ import (
 func main() {
 	var log = logrus.New()
 	ctx := context.Background()
-	c := config.Dev()
-	s := server.New(c, ctx, *log)
+	c := config.Prod()
+	s := server.New(c, ctx, log)
 	s.Serve()
 }

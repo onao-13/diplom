@@ -2,7 +2,7 @@ var citiesList = document.querySelector(".cities");
 
 let json;
 
-let response = await fetch("http://localhost:8080/api/locations/new")
+let response = await fetch("http://localhost:8120/api/cities")
 if (response.ok) {
   json = await response.json();
 } else {
@@ -19,28 +19,31 @@ for (let i = cities.length-1; i >= 0 ; i--) {
 
 function createCity(cityData) {
     var list = [];
-    for(let location of cityData.locations) {
-        let data = createCityCardLocation(location);
-        list.push(data);
+    if (cityData.homes != null) {
+        for(let location of cityData.homes) {
+            let data = createCityCardLocation(location);
+            list.push(data);
+        }
     }
 
     return `
     <div class="city">
         <p class="name">${cityData.name}</p>
         <div class="cards">${list.join('')}</div>
+        <button class="button__main">Показать больше</button>
     </div>
     `
 }
 
 function createCityCardLocation(location) {
     var transpotrs = [];
-    for (let transport of location.features.transport) {
+    for (let transport of location.transports) {
         let data = createCityTransportRow(transport);
         transpotrs.push(data);
     }
 
     var popularLocations = [];
-    for (let popLoc of location.features.popular_locations) {
+    for (let popLoc of location.popular_locations) {
         let data = createPopularLocation(popLoc);
         popularLocations.push(data);
     }
@@ -50,7 +53,7 @@ function createCityCardLocation(location) {
         <img src="" alt="">
         <div class="data">
         <div class="main">
-            <div class="name">${location.name}</div>
+            <div class="name">${location.name}, ${location.street}</div>
             <div class="price">Цена: ${location.price}</div>
         </div>
             <div class="details">
@@ -86,6 +89,7 @@ function createPopularLocation(popularLocation) {
 let cards = document.querySelectorAll(".card");
 cards.forEach(card => {
     card.addEventListener('click', () => {
-        window.location.replace(`http://localhost:8080/home?id=${card.id}`)
+        sessionStorage.setItem("homeId", card.id)
+        window.location.replace(`http://localhost:8120/home`)
     });
 })

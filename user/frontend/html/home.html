@@ -15,7 +15,6 @@
           <li><a href="/">Домашняя страница</a></li>
           <li><a href="/locations">Локации</a></li>
           <li><a href="">О компании</a></li>
-          <li><a href="/articles">Статьи</a></li>
           <li><a href="">Поддержка</a></li>
         </ul>
     </header>
@@ -24,7 +23,7 @@
             <div class="category-title">
                 
             </div>
-            <button class="button__main">Связаться с менеджером</button>
+            <button class="button__main" id="manager_form_button">Связаться с менеджером</button>
         </div>
         <div class="home__slider">
             <div class="slider__slides">
@@ -33,7 +32,45 @@
             </div>
         </div>
         <div class="home__description">
-
+          <h2>Описание локации и ее преимущества</h2>
+          <div class="home__description__categories">
+            <div class="category layout">
+              <div class="card">
+                <p>/планировка</p>
+              </div>
+              <div class="content"></div>
+            </div>
+            <div class="category green-zone">
+              <div class="card">
+                <p>/зеленая зона</p>
+              </div>
+              <div class="content"></div>
+            </div>
+            <div class="category school">
+              <div class="card">
+                <p>/сады и школы</p>
+              </div>
+              <div class="content"></div>
+            </div>
+            <div class="category transport">
+              <div class="card">
+                <p>/транспорт</p>
+              </div>
+              <div class="content"></div>
+            </div>
+            <div class="category infrastructure">
+              <div class="card">
+                <p>/инфраструктура</p>
+              </div>
+              <div class="content"></div>
+            </div>
+            <div class="category events">
+              <div class="card">
+                <p>/мероприятия</p>
+              </div>
+              <div class="content"></div>
+            </div>
+          </div>
         </div>
     </div>
     <footer>
@@ -58,19 +95,14 @@
           </div>
           <div class="column">
             <div class="title">
-              Статьи            
-            </div>
-            <div class="box"></div>
-          </div>
-          <div class="column">
-            <div class="title">
               
             </div>
             <div class="box"></div>
           </div>
         </div>
     </footer>
-    <script src="/static/js/home-slider.js"></script>
-    <script type="module" src="/static/js/home-data.js"></script>
+    <script type="module" src="/static/js/home-slider.js"></script>
+    <script type="module" src="/static/js/home.js"></script>
+    <script type="module" src="/static/js/manager-form.js"></script>
 </body>
 </html>

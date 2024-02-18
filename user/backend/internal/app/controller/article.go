@@ -2,7 +2,7 @@ package controller
 
 import (
 	"backend/internal/app/handler"
-	"backend/internal/app/middleware/service"
+	"backend/internal/app/service"
 	"net/http"
 	"strconv"
 
