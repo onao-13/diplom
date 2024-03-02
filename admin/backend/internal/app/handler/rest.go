@@ -15,15 +15,15 @@ func HandleDecodeJsonError(w http.ResponseWriter, err error) {
 	logger.Error("Ошибка декодирования json: %s", err.Error())
 }
 
-// HandleOk function     Обертка для отправки ответа со статусом 200 и телом
-func HandleOkData(w http.ResponseWriter, data map[string]interface{}) {
-	handle(http.StatusOK, w, data)
-}
-
 // HandleOkMsg function   Обертка для отправки ответа со статусом 200 и сообщением
 func HandleOkMsg(w http.ResponseWriter, msg string) {
 	res := createShortRes("response", msg)
 	handle(http.StatusOK, w, res)
+}
+
+// HandleOk function     Обертка для отправки ответа со статусом 200 и телом
+func HandleOkData(w http.ResponseWriter, data interface{}) {
+	handle(http.StatusOK, w, data)
 }
 
 // HandleCreate function Обертка для отправки ответа со статусом 201
@@ -40,6 +40,17 @@ func HandleNoContent(w http.ResponseWriter) {
 func HandleDelete(w http.ResponseWriter, msg string) {
 	res := createShortRes("response", msg)
 	handle(http.StatusNoContent, w, res)
+}
+
+func Forbidden(w http.ResponseWriter, msg string) {
+	data := map[string]string{
+		"error": msg,
+	}
+	handle(http.StatusForbidden, w, data)
+}
+
+func Unauth(w http.ResponseWriter) {
+	w.WriteHeader(http.StatusUnauthorized)
 }
 
 // HandleConflict function     Обертка для отправки ответа со статусом 409
@@ -67,7 +78,7 @@ func HandlerInternalServerError(w http.ResponseWriter, err string) {
 }
 
 // handle function    функция для создания ответа и отправки ее клиенту
-func handle(code int, w http.ResponseWriter, data map[string]interface{}) {
+func handle(code int, w http.ResponseWriter, data interface{}) {
 	setContentType(&w)
 	w.WriteHeader(code)
 	if data != nil {

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"admin/internal/app/server"
 	"admin/internal/config"
+	"admin/internal/server"
 )
 
 func main() {
