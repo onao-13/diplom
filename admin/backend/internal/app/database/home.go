@@ -78,10 +78,8 @@ func (h Home) GetById(cityId, homeId string) (home *payload.Home, err error) {
 		COALESCE(city_homes.events, ''),
 		COALESCE(city_homes.schools, ''),
 		COALESCE(city_homes.transports, ''),
-		COALESCE(city_homes.popularLocations, ''),
-		COALESCE(home_images.link, '')
+		COALESCE(city_homes.popularLocations, '')
 	FROM city_homes
-		LEFT JOIN home_images on city_homes.id = home_images.homeid
 	WHERE 
 	    cityid=@cityid
 	AND
@@ -98,22 +96,45 @@ func (h Home) GetById(cityId, homeId string) (home *payload.Home, err error) {
 		return
 	}
 
+	var batch = &pgx.Batch{}
+
 	for rows.Next() {
 		home = &payload.Home{}
-		var img payload.HomeImage
 
 		err = rows.Scan(
 			&home.Id, &home.Name, &home.Street, &home.Price, &home.CityId,
 			&home.Description, &home.Layout, &home.GreenZone,
 			&home.Infrastructure, &home.Events, &home.Schools,
-			&home.Transports, &home.PopularLocations, &img.URL,
+			&home.Transports, &home.PopularLocations,
 		)
 		if err != nil {
 			fmt.Println("Err scan: ", err)
 			return
 		}
 
-		home.Images = append(home.Images, img)
+		h.getImage(batch, home.Id)
+	}
+
+	br := h.pool.SendBatch(h.ctx, batch)
+	defer br.Close()
+
+	for i := 0; i < batch.Len(); i++ {
+		rows, err = br.Query()
+		if err != nil {
+			return
+		}
+
+		for rows.Next() {
+			var (
+				img    payload.HomeImage
+				homeId string
+			)
+			if err = rows.Scan(&img.Id, &img.URL, &homeId); err != nil {
+				return
+			}
+
+			home.Images = append(home.Images, img)
+		}
 	}
 
 	return
@@ -134,10 +155,8 @@ func (h Home) GetByCityId(cityId string) (homes []*payload.Home, err error) {
 		COALESCE(city_homes.events, ''),
 		COALESCE(city_homes.schools, ''),
 		COALESCE(city_homes.transports, ''),
-		COALESCE(city_homes.popularLocations, ''),
-		COALESCE(home_images.link, '')
+		COALESCE(city_homes.popularLocations, '')
 	FROM city_homes
-		LEFT JOIN home_images on city_homes.id = home_images.homeid
 	WHERE 
 	    cityid=@cityid
 	`
@@ -147,34 +166,69 @@ func (h Home) GetByCityId(cityId string) (homes []*payload.Home, err error) {
 	}
 
 	rows, err := h.pool.Query(h.ctx, sql, arg)
+	defer rows.Close()
 	if err != nil {
 		return
 	}
 
+	var (
+		batch    = &pgx.Batch{}
+		homesIds = make(map[string]*payload.Home)
+	)
+
 	for rows.Next() {
 		var home payload.Home
-		var img payload.HomeImage
 
 		err = rows.Scan(
 			&home.Id, &home.Name, &home.Street, &home.Price,
 			&home.CityId, &home.Description, &home.Layout, &home.GreenZone,
 			&home.Infrastructure, &home.Events, &home.Schools, &home.Transports,
-			&home.PopularLocations, &img.URL,
+			&home.PopularLocations,
 		)
 		if err != nil {
 			fmt.Println("Err scan: ", err)
+			continue
+		}
+
+		homesIds[home.Id] = &home
+		h.getImage(batch, home.Id)
+	}
+
+	br := h.pool.SendBatch(h.ctx, batch)
+	defer br.Close()
+
+	for i := 0; i < batch.Len(); i++ {
+		rows, err = br.Query()
+		if err != nil {
 			return
 		}
 
-		home.Images = append(home.Images, img)
+		for rows.Next() {
+			var (
+				img    payload.HomeImage
+				homeId string
+			)
+			if err = rows.Scan(&img.Id, &img.URL, &homeId); err != nil {
+				return
+			}
 
-		homes = append(homes, &home)
+			home, ok := homesIds[homeId]
+			if !ok {
+				continue
+			}
+
+			home.Images = append(home.Images, img)
+		}
+	}
+
+	for _, home := range homesIds {
+		homes = append(homes, home)
 	}
 
 	return
 }
 
-func (h Home) Update(homeId string, home payload.HomeUpdate) error {
+func (h Home) Update(homeId string, home payload.Home) error {
 	sql := `
 	UPDATE city_homes SET	
 		name=@name, 
@@ -213,12 +267,8 @@ func (h Home) Update(homeId string, home payload.HomeUpdate) error {
 		return err
 	}
 
-	for _, img := range home.AddedImages {
+	for _, img := range home.Images {
 		h.batchAddImage(batch, homeId, img)
-	}
-
-	for _, img := range home.RemovedImages {
-		h.batchRemoveImage(batch, img)
 	}
 
 	br := h.pool.SendBatch(h.ctx, batch)
@@ -251,12 +301,11 @@ func (h Home) Delete(cityId, homeId string) error {
 
 func (h Home) batchAddImage(batch *pgx.Batch, homeId string, img payload.HomeImage) {
 	sql := `
-			INSERT INTO
-				home_images(homeid, link) 
-			VALUES(@homeid, @link) 
-			`
+	select insertOrUpdateHomeImageURL(@link, @imgid, @homeid);
+	`
 
 	args := pgx.NamedArgs{
+		"imgid":  img.Id,
 		"homeid": homeId,
 		"link":   img.URL,
 	}
@@ -264,76 +313,21 @@ func (h Home) batchAddImage(batch *pgx.Batch, homeId string, img payload.HomeIma
 	batch.Queue(sql, args)
 }
 
-func (h Home) batchRemoveImage(batch *pgx.Batch, img payload.HomeImage) {
+func (h Home) getImage(batch *pgx.Batch, homeId string) {
 	sql := `
-	DELETE FROM 
+	SELECT
+	    id,
+		link,
+		homeid
+	FROM
 		home_images
-	WHERE
-	    link=@link
+	WHERE 
+	    homeid=@homeid
 	`
 
-	arg := pgx.NamedArgs{"link": img.URL}
+	arg := pgx.NamedArgs{
+		"homeid": homeId,
+	}
 
 	batch.Queue(sql, arg)
 }
-
-//func (h Home) batchAddPopularLocation(batch *pgx.Batch, homeId string, location payload.HomePopularLocation) {
-//	sql := `
-//	INSERT INTO
-//		home_popular_locations(homeid, name, address)
-//	VALUES(@homeid, @name, @address)
-//	`
-//
-//	args := pgx.NamedArgs{
-//		"homeid":  homeId,
-//		"name":    location.Name,
-//		"address": location.Address,
-//	}
-//
-//	batch.Queue(sql, args)
-//}
-//
-//func (h Home) batchDeletePopularLocation(batch *pgx.Batch, id string) {
-//	sql := `
-//	DELETE FROM
-//	   home_popular_locations
-//	WHERE
-//	    id=@id
-//	`
-//
-//	arg := pgx.NamedArgs{
-//		"id": id,
-//	}
-//
-//	batch.Queue(sql, arg)
-//}
-//
-//func (h Home) batchAddTransport(batch *pgx.Batch, homeId string, transport payload.HomeTransport) {
-//	sql := `
-//	INSERT INTO
-//		home_transports(homeid, name)
-//	VALUES(@homeid, @name)
-//	`
-//
-//	args := pgx.NamedArgs{
-//		"homeid": homeId,
-//		"name":   transport.Name,
-//	}
-//
-//	batch.Queue(sql, args)
-//}
-//
-//func (h Home) batchDeleteTransport(batch *pgx.Batch, id string) {
-//	sql := `
-//	DELETE FROM
-//	   home_transports
-//	WHERE
-//	    id=@id
-//	`
-//
-//	arg := pgx.NamedArgs{
-//		"id": id,
-//	}
-//
-//	batch.Queue(sql, arg)
-//}

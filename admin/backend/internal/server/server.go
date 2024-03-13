@@ -35,11 +35,12 @@ func (s *Server) Serve() {
 		panic(fmt.Sprintf("Ошибка подключения к базе: %s", err))
 	}
 
-	securityAuth := security.NewAuth(s.cfg.Root, log)
-
 	callsDatabase := database.NewManagerCalls(s.ctx, pool)
 	cityDatabase := database.NewCity(s.ctx, pool)
 	homeDatabase := database.NewHome(s.ctx, pool)
+	authDatabase := database.NewAuth(pool, s.ctx)
+
+	securityAuth := security.NewAuth(authDatabase, log)
 
 	callsService := service.NewManagerCalls(callsDatabase, log)
 	cityService := service.NewCity(log, cityDatabase)

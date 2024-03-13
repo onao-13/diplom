@@ -18,6 +18,7 @@ type (
 		Schools          string      `json:"schools"`
 	}
 	HomeImage struct {
+		Id  string `json:"id"`
 		URL string `json:"url"`
 	}
 	HomeTransport struct {
@@ -28,22 +29,5 @@ type (
 		Id      int64  `json:"id"`
 		Name    string `json:"name"`
 		Address string `json:"address"`
-	}
-	HomeUpdate struct {
-		Id               string      `json:"id"`
-		Name             string      `json:"name"`
-		Street           string      `json:"street"`
-		Price            string      `json:"price"`
-		Description      string      `json:"description"`
-		CityId           string      `json:"city_id"`
-		Transports       string      `json:"transports"`
-		PopularLocations string      `json:"popular_locations"`
-		Layout           string      `json:"layout"`
-		GreenZone        string      `json:"green_zone"`
-		Infrastructure   string      `json:"infrastructure"`
-		Events           string      `json:"events"`
-		Schools          string      `json:"schools"`
-		AddedImages      []HomeImage `json:"added_images"`
-		RemovedImages    []HomeImage `json:"removed_images"`
 	}
 )

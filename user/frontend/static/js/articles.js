@@ -2,7 +2,7 @@ let articles = document.querySelector(".articles");
 
 var json;
 
-let response = await fetch("http://localhost:8120/api/articles/new");
+let response = await fetch("http://185.187.91.14:8120/api/articles/new");
 if (response.ok) {
     json = await response.json();
 }

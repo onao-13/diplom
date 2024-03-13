@@ -123,6 +123,13 @@ h2 {
   color: red;
 }
 
+.home__description h2 {
+  margin-bottom: 4px;
+}
+.home__description .content {
+  padding-bottom: 40px;
+}
+
 .home__description__categories {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

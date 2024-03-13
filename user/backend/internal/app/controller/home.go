@@ -3,10 +3,8 @@ package controller
 import (
 	"backend/internal/app/handler"
 	"backend/internal/app/service"
-	"net/http"
-	"strconv"
-
 	"github.com/gorilla/mux"
+	"net/http"
 )
 
 type Home struct {
@@ -19,15 +17,9 @@ func NewHome(s service.Home) Home {
 
 func (h *Home) Get(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	ids, ok := vars["id"]
+	id, ok := vars["id"]
 	if !ok {
 		handler.HandleBadRequest(w, "ID пустое")
-		return
-	}
-
-	id, err := strconv.ParseInt(ids, 10, 64)
-	if err != nil {
-		handler.HandlerInternalServerError(w, "Ошибка получения ID")
 		return
 	}
 

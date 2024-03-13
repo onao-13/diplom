@@ -13,10 +13,10 @@ body {
   padding-left: 60px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .banner .left .top .logo {
-  font-size: 88;
+  font-size: 46px;
   font-weight: 800;
 }
 .banner .left .top .logo em {

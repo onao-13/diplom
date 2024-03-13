@@ -29,30 +29,12 @@ COMMENT ON TABLE city_homes IS 'Список домов в городе';
 
 CREATE TABLE home_images
 (
+    id BIGSERIAL PRIMARY KEY,
     homeId BIGINT  NOT NULL,
     link   VARCHAR(100) NOT NULL
 );
 
 COMMENT ON TABLE home_images IS 'Картинки к домам';
-
--- CREATE TABLE home_popular_locations
--- (
---     id BIGSERIAL PRIMARY KEY,
---     name   VARCHAR(100) NOT NULL,
---     homeId BIGINT  NOT NULL,
---     address VARCHAR(100) NOT NULL
--- );
---
--- COMMENT ON TABLE home_popular_locations IS 'Популярные места возле домов';
---
--- CREATE TABLE home_transports
--- (
---     id BIGSERIAL PRIMARY KEY,
---     homeId BIGINT  NOT NULL,
---     name   VARCHAR(100) NOT NULL
--- );
---
--- COMMENT ON TABLE home_transports IS 'Транспорт к домам';
 
 create table manager_call
 (
@@ -71,17 +53,41 @@ alter table city_homes
         foreign key (cityid) references cities
             on update cascade on delete cascade;
 
--- alter table home_transports
---     add constraint fk_city_homes_to_home_transports
---         foreign key (homeid) references city_homes
---             on delete cascade;
---
--- alter table home_popular_locations
---     add constraint fk_city_homes_to_home_popular_locations
---         foreign key (homeid) references city_homes
---             on delete cascade;
-
 alter table home_images
     add constraint fk_city_homes_to_home_images
         foreign key (homeid) references city_homes
             on delete cascade;
+
+CREATE TABLE users(
+    id BIGSERIAL PRIMARY KEY,
+    username varchar(50) NOT NULL,
+    password varchar(50) NOT NULL
+);
+
+create function insertOrUpdateHomeImageURL(newLink VARCHAR, imgId BIGINT, homeIdIns BIGINT)
+returns INT
+language plpgsql
+as
+$$
+declare
+    img_id bigint;
+begin
+    select id into img_id
+    from home_images
+    where id=imgId;
+
+    if not exists(select id from home_images where id=imgId) then
+        INSERT INTO
+            home_images(homeId, link)
+        VALUES(homeIdIns, newLink);
+    else
+        UPDATE
+            home_images
+        SET
+            link=newLink
+        WHERE
+            id=imgId;
+    end if;
+    return 0;
+end;
+$$

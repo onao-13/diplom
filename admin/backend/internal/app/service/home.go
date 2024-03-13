@@ -47,7 +47,7 @@ func (h Home) GetByCityId(cityId string) (homes []*payload.Home, err error) {
 	return
 }
 
-func (h Home) Update(homeId string, home payload.HomeUpdate) error {
+func (h Home) Update(homeId string, home payload.Home) error {
 	if err := h.db.Update(homeId, home); err != nil {
 		h.log.Errorln("Ошибка обновления дома: ", err.Error())
 		return err

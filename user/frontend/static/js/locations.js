@@ -2,12 +2,14 @@ var citiesList = document.querySelector(".cities");
 
 let json;
 
-let response = await fetch("http://localhost:8120/api/cities")
+let response = await fetch("http://185.187.91.14:8120/api/cities")
 if (response.ok) {
   json = await response.json();
 } else {
   // console.log(response)
 }
+
+const MAX_CITY_COUNT = 6;
 
 var cities = json.cities;
 
@@ -26,28 +28,38 @@ function createCity(cityData) {
         }
     }
 
+    const city = document.createElement('div');
+    city.className = 'city';
+
+    const name = document.createElement('p');
+    name.className = 'name';
+    name.innerText = cityData.name;
+    city.appendChild(name);
+
+    const cards = document.createElement('div');
+    cards.className = 'cards';
+    city.appendChild(cards);
+    cards.insertAdjacentHTML('beforebegin', list.join(''));
+
+    if (list.length > MAX_CITY_COUNT) {
+        const showMoreBtn = document.createElement('button');
+        showMoreBtn.className = 'button__main';
+        showMoreBtn.innerText = 'Показать больше';
+        showMoreBtn.addEventListener('click', () => {
+            console.log("add change page");
+        });
+        city.appendChild(showMoreBtn);
+    }
+
     return `
     <div class="city">
         <p class="name">${cityData.name}</p>
         <div class="cards">${list.join('')}</div>
-        <button class="button__main">Показать больше</button>
     </div>
     `
 }
 
 function createCityCardLocation(location) {
-    var transpotrs = [];
-    for (let transport of location.transports) {
-        let data = createCityTransportRow(transport);
-        transpotrs.push(data);
-    }
-
-    var popularLocations = [];
-    for (let popLoc of location.popular_locations) {
-        let data = createPopularLocation(popLoc);
-        popularLocations.push(data);
-    }
-
     return `
     <div class="card" id="${location.id}">
         <img src="" alt="">
@@ -56,35 +68,20 @@ function createCityCardLocation(location) {
             <div class="name">${location.name}, ${location.street}</div>
             <div class="price">Цена: ${location.price}</div>
         </div>
-            <div class="details">
-                <div class="list">
-                    <p>Транспорт:</p>
-                    ${transpotrs.join('')}
-                </div>
-                <div class="list">
-                    <p>Популярные места:</p>
-                    ${popularLocations.join('')}
-                </div>
+        <div class="details">
+            <div class="list">
+                <title>Транспорт</title>
+                <p>${location.transports}</p>
             </div>
+            <div class="list">
+                <title>Популярные места</title>
+                <p>${location.popular_locations}</p>
+            </div>
+        </div>
         </div>
     </div>
     `
 }
-
-function createCityTransportRow(transport) {
-    return `
-    <div class="row">
-        <p>${transport.name}</p>
-    </div>`
-}
-
-function createPopularLocation(popularLocation) {
-    return `
-    <div class="row">
-        <p>${popularLocation.name}</p>
-    </div>
-    `
-} 
 
 let cards = document.querySelectorAll(".card");
 cards.forEach(card => {

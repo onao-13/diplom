@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   myhome-dev:
-    image: myhome
+    image: onao13/myhome
     networks:
       - dev
 #    depends_on:

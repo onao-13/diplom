@@ -146,6 +146,17 @@ h2 {
     }
 }
 
+.home__description {
+
+    h2 {
+        margin-bottom: 4px;
+    }
+
+    .content {
+        padding-bottom: 40px;
+    }
+}
+
 .home__description__categories {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

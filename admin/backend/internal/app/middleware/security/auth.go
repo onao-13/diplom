@@ -1,9 +1,9 @@
 package security
 
 import (
+	"admin/internal/app/database"
 	"admin/internal/app/errors"
 	"admin/internal/app/payload"
-	"admin/internal/config"
 	"crypto/sha512"
 	"encoding/hex"
 	"fmt"
@@ -13,21 +13,17 @@ import (
 
 type Auth struct {
 	log    *logrus.Logger
-	root   config.RootUser
+	db     database.Auth
 	tokens []string
 }
 
-func NewAuth(root config.RootUser, log *logrus.Logger) Auth {
-	return Auth{log: log, root: root}
+func NewAuth(db database.Auth, log *logrus.Logger) Auth {
+	return Auth{log: log, db: db}
 }
 
 func (a Auth) Login(auth payload.Auth) (token string, err error) {
-	if auth.Username != a.root.Username {
-		return "", fmt.Errorf("неверное имя пользователя")
-	}
-
-	if auth.Password != a.root.Password {
-		return "", fmt.Errorf("неверный пароль")
+	if !a.db.Login(auth) {
+		return "", fmt.Errorf("ошибка логина или пароля")
 	}
 
 	token = a.generateToken()

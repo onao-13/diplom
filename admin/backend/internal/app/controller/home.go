@@ -92,7 +92,7 @@ func (l *Home) Update(w http.ResponseWriter, r *http.Request) {
 	)
 
 	var (
-		home payload.HomeUpdate
+		home payload.Home
 		err  error
 	)
 
@@ -100,6 +100,8 @@ func (l *Home) Update(w http.ResponseWriter, r *http.Request) {
 		handler.HandleDecodeJsonError(w, fmt.Errorf("Ошибка декодирования JSON"))
 		return
 	}
+
+	fmt.Println(home)
 
 	if err = l.service.Update(homeId, home); err != nil {
 		handler.HandlerInternalServerError(w, "Ошибка обновления дома")

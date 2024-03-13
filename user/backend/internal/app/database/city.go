@@ -74,16 +74,15 @@ func (c City) getHomesByCityId(wg *sync.WaitGroup, cityId string, city *payload.
 		city_homes.street,
 		city_homes.price,
 		city_homes.cityid,
-		COALESCE(home_transports.id, 0),
-		COALESCE(home_transports.name, ''),
-		COALESCE(home_popular_locations.id, 0),
-		COALESCE(home_popular_locations.name, ''),
-		COALESCE(home_popular_locations.address, ''),
-		COALESCE(home_images.link, '')
+		COALESCE(city_homes.description, ''),
+		COALESCE(city_homes.layout, ''),
+		COALESCE(city_homes.greenzone, ''),
+		COALESCE(city_homes.infrastructure, ''),
+		COALESCE(city_homes.events, ''),
+		COALESCE(city_homes.schools, ''),
+		COALESCE(city_homes.transports, ''),
+		COALESCE(city_homes.popularLocations, '')
 	FROM city_homes
-		LEFT JOIN home_transports ON city_homes.id = home_transports.homeid
-		LEFT JOIN home_popular_locations ON city_homes.id = home_popular_locations.homeid
-		LEFT JOIN home_images on city_homes.id = home_images.homeid
 	WHERE 
 	    cityid=@cityid
 	`
@@ -99,29 +98,78 @@ func (c City) getHomesByCityId(wg *sync.WaitGroup, cityId string, city *payload.
 		return
 	}
 
+	var (
+		batch    = &pgx.Batch{}
+		homesIds = make(map[string]*payload.Home)
+	)
+
 	for rows.Next() {
 		var home payload.Home
-		var transport payload.HomeTransport
-		var location payload.HomePopularLocation
-		var img payload.HomeImage
 
 		err = rows.Scan(
-			&home.Id, &home.Name, &home.Street, &home.Price, &home.CityId,
-			&transport.Id, &transport.Name,
-			&location.Id, &location.Name, &location.Address,
-			&img.URL,
+			&home.Id, &home.Name, &home.Street, &home.Price,
+			&home.CityId, &home.Description, &home.Layout, &home.GreenZone,
+			&home.Infrastructure, &home.Events, &home.Schools, &home.Transports,
+			&home.PopularLocations,
 		)
 		if err != nil {
 			fmt.Println("Err scan: ", err)
+			continue
+		}
+
+		homesIds[home.Id] = &home
+		c.getImage(batch, home.Id)
+	}
+
+	br := c.pool.SendBatch(c.ctx, batch)
+	defer br.Close()
+
+	for i := 0; i < batch.Len(); i++ {
+		rows, err = br.Query()
+		if err != nil {
 			return
 		}
 
-		home.Transports = append(home.Transports, transport)
-		home.PopularLocations = append(home.PopularLocations, location)
-		home.Images = append(home.Images, img)
+		for rows.Next() {
+			var (
+				img    payload.HomeImage
+				homeId string
+			)
+			if err = rows.Scan(&img.Id, &img.URL, &homeId); err != nil {
+				return
+			}
 
-		city.Homes = append(city.Homes, &home)
+			home, ok := homesIds[homeId]
+			if !ok {
+				continue
+			}
+
+			home.Images = append(home.Images, img)
+		}
 	}
+
+	for _, home := range homesIds {
+		city.Homes = append(city.Homes, home)
+	}
+}
+
+func (c City) getImage(batch *pgx.Batch, homeId string) {
+	sql := `
+	SELECT
+	    id,
+		link,
+		homeid
+	FROM
+		home_images
+	WHERE 
+	    homeid=@homeid
+	`
+
+	arg := pgx.NamedArgs{
+		"homeid": homeId,
+	}
+
+	batch.Queue(sql, arg)
 }
 
 //func (c City) GetAll() (cities []*payload.City, err error) {
