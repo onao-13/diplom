@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дома</title>
+    <link rel="stylesheet" href="/static/style/root.css">
+    <link rel="stylesheet" href="/static/style/homes.css">
+</head>
+<body>
+    <div class="city">
+        <div class="top">
+            <img src="/static/icons/arrow-left-circle.svg" alt="" onclick="location.replace('/cities')">
+            <strong>Название города</strong>
+        </div>
+        <div class="edit-name">
+            <input type="text" id="name" placeholder="Название города">
+            <button id="save">Сохранить</button>
+            <button id="delete">Удалить</button>
+        </div>
+    </div>
+    <div class="homes">
+        <strong>Жилые комплексы</strong>
+        <div id="homes-grid">
+            <button class="home-create" onclick="location.replace('/home'); sessionStorage.removeItem('homeId')">
+                <img src="/static/icons/add-square.svg" alt="">Добавить
+            </button>
+        </div>
+    </div>
+    <script type="module" src="/static/js/homes.js"></script>
+</body>
+</html>

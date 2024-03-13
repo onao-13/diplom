@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать города</title>
+    <link rel="stylesheet" href="/static/style/root.css">
+    <link rel="stylesheet" href="/static/style/cities.css">
+    <link rel="stylesheet" href="/static/bootstrap/bootstrap.min.css">
+</head>
+<body>
+    <div class="top">
+        <img src="/static/icons/arrow-left-circle.svg" alt="" onclick="location.replace('/panel')">
+        <h2>Редактировать города</h2>
+    </div>
+    <div class="cities">
+        <button data-bs-toggle="modal" data-bs-target="#send-info" class="card-city city-create">
+            <img src="/static/icons/add-square.svg" alt="">Добавить
+        </button>
+    </div>
+    <div class="modal fade" tabindex="-1" id="send-info">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 id="modal-title" class="modal-title fs-5">Создать город</h1>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" placeholder="Имя города" id="city-name">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button class="btn btn-primary" data-bs-dismiss="modal" id="create-city">Создать</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="/static/js/cities.js"></script>
+    <script type="module" src="/static/bootstrap/bootstrap.bundle.min.js"></script>
+    <script type="module" src="/static/js/create-city.js"></script>
+</body>
+</html>

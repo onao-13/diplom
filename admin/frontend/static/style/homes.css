@@ -1,0 +1,112 @@
+body {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+strong {
+  font-size: 54px;
+}
+
+.city {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.city .top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.city .top img {
+  cursor: pointer;
+}
+.city .edit-name {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+.city .edit-name #name {
+  padding-left: 10px;
+  border-radius: 24px;
+  border: 1px solid black;
+  font-size: 18px;
+  font-weight: 600;
+}
+.city .edit-name button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 24px;
+  color: white;
+  cursor: pointer;
+}
+.city .edit-name #save {
+  background-color: #80737D;
+}
+.city .edit-name #delete {
+  background-color: #B3001B;
+}
+
+.homes {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.homes #homes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.homes #homes-grid .home-create {
+  width: 232px;
+  height: 232px;
+  border: 1px solid black;
+  background: none;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.homes #homes-grid .home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid black;
+  border-radius: 24px;
+  background-color: white;
+  padding: 4px;
+  width: 232px;
+  height: 232px;
+}
+.homes #homes-grid .home .city-data {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 4px;
+  padding-left: 6px;
+}
+.homes #homes-grid .home img {
+  width: 100%;
+  height: 130px;
+  border: 1px solid black;
+  border-radius: 24px;
+}
+.homes #homes-grid .home p {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+}
+.homes #homes-grid .home #edit-home {
+  width: 94%;
+  height: 40px;
+  color: white;
+  background-color: #80737D;
+  border-radius: 24px;
+  border: none;
+  cursor: pointer;
+}/*# sourceMappingURL=homes.css.map */

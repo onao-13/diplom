@@ -1,0 +1,68 @@
+.top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+
+    img {
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+    }
+}
+
+body {
+    padding: 50px;
+}
+
+.card-city {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+}
+
+.cities {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 30px;
+
+    .city {
+        display: flex;
+        flex-direction: column;
+
+        padding: 10px;
+        border: 1px solid black;
+        border-radius: 24px;
+
+        p {
+            font-size: 30px;
+            font-weight: 600;
+        }
+
+        button {
+            padding: 6px;
+            border-radius: 24px;
+            border: none;
+            background-color: #80737D;
+        }
+    }
+}
+
+.city-create {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 24px;
+    background: none;
+
+    cursor: pointer;
+
+    img {
+        width: 36px;
+        height: 36px;
+    }
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style/root.css">
+    <link rel="stylesheet" href="/static/style/panel.css">
+    <title>Панель</title>
+</head>
+<body>
+    <h1>Админ панель</h1>
+    <div class="category">
+        <h2>Уведомления</h2>
+        <div class="box">
+            <div class="title">
+                <img src="/static/icons/phone.svg" alt="">
+                <p>Оставленые звонки</p>
+            </div>
+            <div class="actions">
+                <button id="calls">Посмотреть заявки</button>
+            </div>
+        </div>
+    </div>
+    <div class="category">
+        <h2>Редактировать</h2>
+        <div class="box">
+            <div class="title">
+                <img src="/static/icons/home.svg" alt="">
+                <p>Города</p>
+            </div>
+            <div class="actions">
+                <button id="cities">Редактировать</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelector("#calls").addEventListener('click', () => {
+            location.replace("/calls");
+        });
+        document.querySelector("#cities").addEventListener('click', () => {
+            location.replace("/cities");
+        });
+    </script>
+</body>
+</html>

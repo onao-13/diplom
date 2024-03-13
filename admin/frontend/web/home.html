@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дом</title>
+    <link rel="stylesheet" href="/static/style/root.css">
+    <link rel="stylesheet" href="/static/style/home.css">
+</head>
+<body>
+    <div class="top">
+        <img src="/static/icons/arrow-left-circle.svg" alt="" onclick="location.replace('/homes')">
+        <h2>Редактирование дома</h2>
+    </div>
+    <div class="main">
+        <strong>Основные данные</strong>
+        <div class="grid">
+            <div class="col">
+                <div class="right">
+                    <p>Название дома</p>
+                    <input id="name" type="text" placeholder="Название дома">
+                </div>
+                <div class="right">
+                    <p>Улица</p>
+                    <input id="street" type="text" placeholder="Название улицы">
+                </div>
+                <div class="right">
+                    <p>Цена</p>
+                    <input id="price" type="number" placeholder="Цена дома">
+                </div>
+            </div>
+            <div class="col">
+                <div class="bottom">
+                    <p>Описание</p>
+                    <textarea id="description" type="text" placeholder="Описание дома"></textarea>
+                </div>
+
+                <div class="bottom">
+                    <p>Изображения</p>
+                    <div class="images-input">
+                        <input id="0" class="images" type="text" placeholder="Ссылка на картинку">
+                        <input id="0" class="images" type="text" placeholder="Ссылка на картинку">
+                        <input id="0" class="images" type="text" placeholder="Ссылка на картинку">
+                        <input id="0" class="images" type="text" placeholder="Ссылка на картинку">
+                        <input id="0" class="images" type="text" placeholder="Ссылка на картинку">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="optional">
+        <strong>Дополнительно</strong>
+        <div class="grid">
+            <div class="col">
+                <div class="bottom">
+                    <p>Транспорт</p>
+                    <textarea id="transports" type="text" placeholder="Транспорт"></textarea>
+                </div>
+                <div class="bottom">
+                    <p>Популярные места</p>
+                    <textarea id="locations" type="text" placeholder="Популярные места"></textarea>
+                </div>
+                <div class="bottom">
+                    <p>Зеленая зона</p>
+                    <textarea id="greenZone" type="text" placeholder="Зеленая зона"></textarea>
+                </div>
+                <div class="bottom">
+                    <p>Планировка</p>
+                    <textarea id="layout" type="text" placeholder="Планировка"></textarea>
+                </div>
+            </div>
+            <div class="col">
+                <div class="bottom">
+                    <p>Инфраструктура</p>
+                    <textarea id="infrastructure" type="text" placeholder="Инфраструктура"></textarea>
+                </div>
+                <div class="bottom">
+                    <p>Сады и школы</p>
+                    <textarea id="schools" type="text" placeholder="Сады и школы"></textarea>
+                </div>
+                <div class="bottom">
+                    <p>Мероприятия</p>
+                    <textarea id="events" type="text" placeholder="Мероприятия"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <button id="save">Сохранить</button>
+        <button id="delete">Удалить</button>
+    </div>
+    <script type="module" src="/static/js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+body {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+}
+.top img {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.grid .col {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.grid .col .right {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+}
+.grid .col .bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.grid .col .images-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.grid textarea {
+  padding-left: 8px;
+  border-radius: 8px;
+  border: 1px solid black;
+  height: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  width: 200px;
+}
+.grid input {
+  padding-left: 8px;
+  border-radius: 24px;
+  border: 1px solid black;
+  height: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 200px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 24px;
+  color: white;
+  cursor: pointer;
+}
+.actions #save {
+  background-color: #80737D;
+}
+.actions #delete {
+  background-color: #B3001B;
+}/*# sourceMappingURL=home.css.map */
