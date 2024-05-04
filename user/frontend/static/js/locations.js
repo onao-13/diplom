@@ -1,8 +1,10 @@
+const HOST = "176.123.164.135:8120"
+
 var citiesList = document.querySelector(".cities");
 
 let json;
 
-let response = await fetch("http://185.187.91.14:8120/api/cities")
+let response = await fetch(`http://${HOST}/api/cities`)
 if (response.ok) {
   json = await response.json();
 } else {
@@ -60,9 +62,13 @@ function createCity(cityData) {
 }
 
 function createCityCardLocation(location) {
+    var imgCover = "";
+    if (location.images != null) {
+        imgCover = location.images[0].url;
+    }
     return `
     <div class="card" id="${location.id}">
-        <img src="" alt="">
+        <img src="${imgCover}" alt="">
         <div class="data">
         <div class="main">
             <div class="name">${location.name}, ${location.street}</div>
@@ -87,6 +93,6 @@ let cards = document.querySelectorAll(".card");
 cards.forEach(card => {
     card.addEventListener('click', () => {
         sessionStorage.setItem("homeId", card.id)
-        window.location.replace(`http://localhost:8120/home`)
+        window.location.replace(`http://${HOST}/home`)
     });
 })

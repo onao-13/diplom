@@ -31,7 +31,7 @@ CREATE TABLE home_images
 (
     id BIGSERIAL PRIMARY KEY,
     homeId BIGINT  NOT NULL,
-    link   VARCHAR(100) NOT NULL
+    link   VARCHAR(1000) NOT NULL
 );
 
 COMMENT ON TABLE home_images IS 'Картинки к домам';
@@ -45,7 +45,7 @@ create table manager_call
     number varchar(20)  not null,
     homeId bigint       not null
         constraint manager_call_city_homes_id_fk
-            references city_homes
+            references city_homes on delete cascade
 );
 
 alter table city_homes

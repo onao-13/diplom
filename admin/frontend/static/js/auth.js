@@ -1,4 +1,4 @@
-const SERVER_URL = "http://185.187.91.14:8085/api/auth";
+const SERVER_URL = "http://176.123.164.135:8085/api/auth";
 
 let btnLogin = document.querySelector("#login");
 btnLogin.addEventListener('click', () => {

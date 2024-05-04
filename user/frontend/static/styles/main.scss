@@ -9,6 +9,7 @@ html {
 
 .content {
   padding-left: 30px;
+  padding-right: 30px;
 }
 
 body {
@@ -33,6 +34,18 @@ header {
     text-align: center;
     justify-content: space-evenly;
     padding: 0;
+  }
+}
+
+@media (max-width: 510px) {
+  footer {
+    .title {
+      font-size: 12px !important;
+    }
+  }
+
+  h1 {
+    font-size: 1.5em !important;
   }
 }
 

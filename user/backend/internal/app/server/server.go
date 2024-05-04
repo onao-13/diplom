@@ -5,6 +5,7 @@ import (
 	"backend/internal/app/service"
 	"context"
 	"fmt"
+	"github.com/rs/cors"
 	"net/http"
 
 	"backend/internal/app/api"
@@ -58,14 +59,15 @@ func (s *Server) Serve() {
 		managerCallController,
 	)
 
-	s.srv = http.Server{
-		Addr:    fmt.Sprintf(":%s", s.cfg.Port),
-		Handler: route,
-	}
+	corsOpt := cors.New(cors.Options{
+		AllowedOrigins: []string{"*"},
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders: []string{"Content-Type", "Origin", "Accept", "*"},
+	})
 
 	s.log.Infoln("Сервер запущен на порту: ", s.cfg.Port)
 
-	err = s.srv.ListenAndServe()
+	err = http.ListenAndServe(fmt.Sprintf(":%s", s.cfg.Port), corsOpt.Handler(route))
 	if err != nil {
 		s.log.Panicf("Ошибка запуска сервера: %s", err)
 	}

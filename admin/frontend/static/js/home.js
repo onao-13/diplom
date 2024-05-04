@@ -1,4 +1,4 @@
-let API = `http://185.187.91.14:8085/api/cities/${sessionStorage.getItem('cityId')}/homes`;
+let API = `http://176.123.164.135:8085/api/cities/${sessionStorage.getItem('cityId')}/homes`;
 let method;
 
 let homeId = sessionStorage.getItem('homeId');
@@ -27,15 +27,18 @@ if (homeId == null) {
     document.querySelector('#events').value = body.events;
     document.querySelector('#layout').value = body.layout;
     var images = document.querySelectorAll('.images');
-    images.forEach((input, i) => {
-        var imgUrl = body.images[i];
-        if (imgUrl !== undefined) {
-            input.id = imgUrl.id;
-            input.value = imgUrl.url;
-        } else {
-            input.id = '0';
-        }
-    });
+
+    if (body.images != null) {
+        images.forEach((input, i) => {
+            var imgUrl = body.images[i];
+            if (imgUrl !== undefined) {
+                input.id = imgUrl.id;
+                input.value = imgUrl.url;
+            } else {
+                input.id = '0';
+            }
+        });
+    }
 }
 
 async function saveHome(id, name, street, price, description, transports, locations, greenZone, infrastructure, schools, events, layout, images) {

@@ -6,6 +6,7 @@ html {
 
 .content {
   padding-left: 30px;
+  padding-right: 30px;
 }
 
 body {
@@ -30,6 +31,14 @@ header .header__list a {
   text-decoration: none;
 }
 
+@media (max-width: 510px) {
+  footer .title {
+    font-size: 12px !important;
+  }
+  h1 {
+    font-size: 1.5em !important;
+  }
+}
 footer {
   background-color: #80737D;
   width: 100%;
