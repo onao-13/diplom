@@ -1,5 +1,5 @@
 const cityId = sessionStorage.getItem("cityId");
-const HOST = "http://176.123.164.135:8085/api";
+const HOST = "http://77.105.174.83:8085/api";
 const API = `${HOST}/cities/${cityId}/homes`;
 
 let res = await fetch(API);

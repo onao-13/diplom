@@ -1,4 +1,4 @@
-const HOST = "176.123.164.135:8120"
+const HOST = "77.105.174.83:8120"
 const SEND_API_URL = `http://${HOST}/api/send-manager-call`
 
 var showManagerFormButtom = document.querySelector('#manager_form_button');

@@ -1,4 +1,4 @@
-const API = "http://176.123.164.135:8085/api/manager-calls";
+const API = "http://77.105.174.83:8085/api/manager-calls";
 
 let res = await fetch(API);
 
