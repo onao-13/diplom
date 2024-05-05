@@ -1,4 +1,4 @@
-let API = `http://77.105.174.83:8085/api/cities/${sessionStorage.getItem('cityId')}/homes`;
+let API = `https://admin.myhome-dev.online/api/cities/${sessionStorage.getItem('cityId')}/homes`;
 let method;
 
 let homeId = sessionStorage.getItem('homeId');

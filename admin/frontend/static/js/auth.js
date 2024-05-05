@@ -1,4 +1,4 @@
-const SERVER_URL = "http://77.105.174.83:8085/api/auth";
+const SERVER_URL = "https://admin.myhome-dev.online/api/auth";
 
 let btnLogin = document.querySelector("#login");
 btnLogin.addEventListener('click', () => {

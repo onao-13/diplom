@@ -1,4 +1,4 @@
-const API = "http://77.105.174.83:8085/api/cities";
+const API = "https://admin.myhome-dev.online/api/cities";
 
 let res = await fetch(API, {
     mode: 'cors',

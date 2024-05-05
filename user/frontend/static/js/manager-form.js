@@ -1,5 +1,5 @@
-const HOST = "77.105.174.83:8120"
-const SEND_API_URL = `http://${HOST}/api/send-manager-call`
+const HOST = "user.myhome-dev.online";
+const SEND_API_URL = `https://${HOST}/api/send-manager-call`;
 
 var showManagerFormButtom = document.querySelector('#manager_form_button');
 showManagerFormButtom.addEventListener('click', () => {

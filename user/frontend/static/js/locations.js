@@ -1,10 +1,10 @@
-const HOST = "77.105.174.83:8120"
+const HOST = "user.myhome-dev.online"
 
 var citiesList = document.querySelector(".cities");
 
 let json;
 
-let response = await fetch(`http://${HOST}/api/cities`)
+let response = await fetch(`https://${HOST}/api/cities`)
 if (response.ok) {
   json = await response.json();
 } else {

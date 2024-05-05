@@ -1,9 +1,9 @@
-const HOST = "77.105.174.83:8120"
+const HOST = "user.myhome-dev.online"
 
 var homeId = sessionStorage.getItem("homeId");
 
 let home;
-let res = await fetch(`http://${HOST}/api/homes/${homeId}`)
+let res = await fetch(`https://${HOST}/api/homes/${homeId}`)
 if (res.ok) {
     home = await res.json();
 } else {
