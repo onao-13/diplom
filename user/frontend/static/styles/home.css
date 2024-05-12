@@ -3,6 +3,16 @@
     grid-template-columns: repeat(1, 1fr) !important;
   }
 }
+@media (max-width: 900px) {
+  .home__slider .slider__slides .slide-selected {
+    width: 120px !important;
+    height: 80px !important;
+  }
+  .home__slider .slider__slides .slide-unselected {
+    width: 120px !important;
+    height: 80px !important;
+  }
+}
 @media (max-width: 860px) {
   h1 {
     font-size: 46px !important;
@@ -20,15 +30,35 @@
     height: 400px !important;
   }
 }
+@media (max-width: 950px) {
+  .home__slider .slider__slides .slide-selected {
+    width: 80px !important;
+    height: 30px !important;
+  }
+  .home__slider .slider__slides .slide-unselected {
+    width: 80px !important;
+    height: 30px !important;
+  }
+}
 @media (max-width: 600px) {
   .category .card {
     width: 220px !important;
     height: 220px !important;
   }
+  .manager_call_form {
+    width: 300px !important;
+    height: 150px !important;
+  }
 }
 @media (max-width: 500px) {
   .home__data {
     flex-direction: column !important;
+  }
+  .home__slider .slider__slides {
+    visibility: hidden;
+  }
+  .home__description {
+    width: 300px;
   }
 }
 .home__data {

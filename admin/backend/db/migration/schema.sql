@@ -12,16 +12,16 @@ CREATE TABLE city_homes
     id     BIGSERIAL  NOT NULL,
     name   VARCHAR(200) NOT NULL,
     street VARCHAR(100) NOT NULL,
-    description VARCHAR(500),
+    description text,
     cityId BIGINT  NOT NULL,
     price  INT     NOT NULL DEFAULT 0,
-    layout VARCHAR(500),
-    greenzone VARCHAR(500),
-    infrastructure VARCHAR(500),
-    events VARCHAR(500),
-    schools VARCHAR(500),
-    transports VARCHAR(500),
-    popularLocations VARCHAR(500),
+    layout text,
+    greenzone text,
+    infrastructure text,
+    events text,
+    schools text,
+    transports text,
+    popularLocations text,
     PRIMARY KEY (id)
 );
 
@@ -31,7 +31,7 @@ CREATE TABLE home_images
 (
     id BIGSERIAL PRIMARY KEY,
     homeId BIGINT  NOT NULL,
-    link   VARCHAR(1000) NOT NULL
+    link   text NOT NULL
 );
 
 COMMENT ON TABLE home_images IS 'Картинки к домам';
